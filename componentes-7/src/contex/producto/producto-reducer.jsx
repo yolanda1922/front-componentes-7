@@ -1,5 +1,11 @@
 const ProductoReducer = (state, action) => {
   switch (action.type) {
+    case 'CARGAR_PRODUCTOS':
+      return {
+        ...state,
+        productos: action.payload
+      };
+
     case 'AGREGAR_AL_CARRITO': {
       const productoExistente = state.carrito.find(
         item => item.id === action.payload.id

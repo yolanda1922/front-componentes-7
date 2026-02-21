@@ -1,6 +1,8 @@
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 import ProductoContext from './producto-context';
 import ProductoReducer from './producto-reducer';
+import api from '../../config/axios';
+
 
 const ProductoState = ({ children }) => {
   const initialState = {
@@ -18,6 +20,32 @@ const ProductoState = ({ children }) => {
   };
 
   const [state, dispatch] = useReducer(ProductoReducer, initialState);
+
+  // Obtener productos desde API
+  useEffect(() => {
+    const obtenerProductos = async () => {
+      try {
+        console.log('Intentando conectar con el backend...');
+        const response = await api.get('/productos');
+        console.log('Productos recibidos del backend:', response.data);
+        if (response.data && Array.isArray(response.data)) {
+          dispatch({
+            type: 'CARGAR_PRODUCTOS',
+            payload: response.data
+          });
+        }
+      } catch (error) {
+        console.error('Error al obtener productos desde API:', error.message);
+        console.log('Usando productos locales predeterminados');
+        // Si falla la API, mantiene los productos del initialState
+      }
+    };
+
+    // Solo intentar si hay conexión
+    if (typeof window !== 'undefined') {
+      obtenerProductos();
+    }
+  }, []);
 
   // Agregar producto al carrito
   const agregarAlCarrito = (producto) => {
@@ -65,6 +93,12 @@ const ProductoState = ({ children }) => {
   return (
     <ProductoContext.Provider
       value={{
+        state: {
+          productos: state.productos,
+          carrito: state.carrito,
+          totalCarrito,
+          cantidadTotal
+        },
         productos: state.productos,
         carrito: state.carrito,
         agregarAlCarrito,
