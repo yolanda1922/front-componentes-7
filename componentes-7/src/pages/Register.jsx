@@ -123,7 +123,7 @@ const Register = () => {
           style={{
             width: '100%',
             padding: '10px',
-            backgroundColor: '#2196F3',
+            backgroundColor: '#3498db',
             color: 'white',
             border: 'none',
             borderRadius: '4px',

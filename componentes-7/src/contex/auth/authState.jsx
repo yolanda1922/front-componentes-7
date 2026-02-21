@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from 'react';
 import AuthContext from './authContext';
 import AuthReducer from './authReducer';
-import { obtenerUsuarioActual, obtenerToken } from '../../services/authService';
+import { obtenerUsuarioActual, obtenerToken, logout as logoutService } from '../../services/authService';
 
 const AuthState = ({ children }) => {
   const initialState = {
@@ -66,7 +66,6 @@ const AuthState = ({ children }) => {
 
   // Logout
   const logout = () => {
-    const { logout: logoutService } = require('../../services/authService');
     logoutService();
     dispatch({ type: 'LOGOUT' });
   };
