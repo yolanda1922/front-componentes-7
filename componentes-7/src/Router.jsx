@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
+import Profile from "./pages/Profile";
 import Layout from "./components/Layout";
 
 
@@ -17,6 +18,7 @@ const Router = () => {
       <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Register />} />
+          <Route path="/perfil" element={<Profile />} />
           <Route path="/carrito" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/orden-confirmada" element={<OrderConfirmation />} />
